@@ -1,0 +1,161 @@
+-------------------------------------------------------------------------------------------------------
+
+
+public class App {
+
+    Student john = new Student(1021941,"John Whick", "Male" , "CMI","TI-1A");
+
+}
+
+-------------------------------------------------------------------------------------------------------
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Student {
+    private String  studentName, gender, studyGroup, fieldOfStudy, studentClass;
+    private int studentNumber;
+
+    Map<String,Double> achieved;
+    Map<String,Double> notAchieved;
+
+    //Constructor
+    public Student( int studentNumber, String studentName, String gender,  String fieldOfStudy, String studentClass){
+        this.studentNumber = studentNumber;
+        this.studentName = studentName;
+        this.gender = gender;
+        this.fieldOfStudy = fieldOfStudy;
+        this.studentClass = studentClass;
+        this.achieved = new HashMap<>();
+        this.notAchieved = new HashMap<>();
+    }
+
+    //Help Function
+    public void addGrade(Course course, Double gradeD){
+        course.addResult(this, gradeD);
+        if(gradeD >= 5.5){
+            achieved.put(course.getModuleCode(), gradeD);
+        }
+        else{
+            notAchieved.put(course.getModuleCode(),gradeD);
+        }
+    }
+
+    //Get & Setters
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudyGroup(String studyGroup) {
+        this.studyGroup = studyGroup;
+    }
+
+    public String getStudyGroup() {
+        return studyGroup;
+    }
+
+    public void setStudentNumber(int studentNumber) {
+        this.studentNumber = studentNumber;
+    }
+
+    public int getStudentNumber() {
+        return studentNumber;
+    }
+
+    public void setStudentClass(String studentClass) {
+        this.studentClass = studentClass;
+    }
+
+    public String getStudentClass() {
+        return studentClass;
+    }
+
+    public void setFieldOfStudy(String fieldOfStudy) {
+        this.fieldOfStudy = fieldOfStudy;
+    }
+
+    public String getFieldOfStudy() {
+        return fieldOfStudy;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+}
+
+-------------------------------------------------------------------------------------------------------
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
+
+public class Course {
+    private String moduleCode;
+    private int  studieYear;
+    private double courseGrade;
+
+    ArrayList<Double> maleGrades = new ArrayList<>();
+    ArrayList<Double> femaleGrades = new ArrayList<>();
+    HashMap<String, Double> achieved = new HashMap<String, Double>();
+    HashMap<String, Double> notAchieved = new HashMap<String, Double>();
+
+
+
+
+    public void Course(String moduleCode, int studieYear){
+        this.moduleCode = moduleCode;
+        this.studieYear = studieYear;
+    }
+
+    public void addResult(Student s, double gradeD){
+        if(Objects.equals(s.getGender(), "Male")){
+            //add getal to man array
+            maleGrades.add(gradeD);
+        }else{
+            //add getal to vrouw array
+            femaleGrades.add(gradeD);
+        }
+
+        if(gradeD >= 5.5){
+            achieved.put(s.getStudentName(), gradeD);
+        }else{
+            notAchieved.put(s.getStudentName(), gradeD);
+        }
+    }
+
+    public String getModuleCode() {
+        return moduleCode;
+    }
+
+
+
+}
+-------------------------------------------------------------------------------------------------------
+
+import java.util.*;
+//import java.util.stream.*;
+public class Administrative {
+    Map<String, Student> studentMap;
+
+
+    //Constructor
+
+
+
+}
+
+-------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
