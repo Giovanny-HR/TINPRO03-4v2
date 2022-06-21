@@ -30,7 +30,6 @@ public class Administrative {
         //Iterates through the list of students and checks if they have obtained a course with the module code
         Set<Student> passed = new HashSet<>();
         Set<Student> notPassed = new HashSet<>();
-        //---CHECK---
         studentList.forEach(student -> student.courseList.stream()
                 .filter(course ->course.getModuleCode().equalsIgnoreCase(moduleCode))
                 .forEach(course ->{
@@ -41,7 +40,6 @@ public class Administrative {
                     else{
                         notPassed.add(student);
                     }
-                    //---CHECK---
                 }));
         //Display the list of students who have obtained a particular module
         System.out.println("The following students have obtained " + moduleCode + " course ");
@@ -62,7 +60,7 @@ public class Administrative {
                 //prints out a list of hte student's module code
                 .forEach(student -> student.getNotPassedCourses()
                 //Prints out each course's module code
-                .forEach(course -> System.out.println(course.getModuleCode())));
+                .forEach(course -> System.out.println(course.getModuleCode() + " || " + course.getGrade())));
         System.out.println("---------------------------------------------------------------------- ");
     }
 
@@ -76,7 +74,7 @@ public class Administrative {
                 .filter(student -> student.getStudentNumber().equalsIgnoreCase(studentNumber))
                 //Iterates through each course that they have passed by printing its module code
                 .forEach(student -> student.getPassedCourses()
-                        .forEach(course -> System.out.println(course.getModuleCode())));
+                        .forEach(course -> System.out.println(course.getModuleCode() + " || " + course.getGrade())));
         System.out.println("---------------------------------------------------------------------- ");
     }
 
