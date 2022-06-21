@@ -5,13 +5,14 @@ TI1A
  */
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.*;
 
 
 public class Student {
-    //FIELDS
+
+    //Fields
     private String studentName,fieldOfStudy, group;
-    private String studentNumber;
+    private String studentNumber; //why not int? 0 can not be an int
     private Gender gender;
 
     //Course Collection
@@ -29,57 +30,57 @@ public class Student {
     fillCourses();
     }
 
-    //Method with subjects in the corresponding field of study
+
     public void fillCourses(){
-        //---CHECK---
+
         courseList.add(new Course("TINTES01-1",1 ));
         courseList.add(new Course("TINPRO03-1",1 ));
         courseList.add(new Course("TINPR04-1",1 ));
         courseList.add(new Course("TINDTB02-1",1 ));
         courseList.add(new Course("TINSEC04-1",1 ));
-        courseList.forEach(course -> setGrade(randomGrade(), course.getModuleCode()));
-        //---CHECK---
+//        courseList.add(new Course("TINHIS03-1",1 ));
+        //Iterates through all the course in the list and assigns each one a random grade
+        courseList.forEach(course -> setGrade(randomGrade(), course.getModuleCode()));//-
+
     }
 
-    //Method of Grade for Course
+    //Set grade
     public void setGrade(double grade, String moduleCode){
-        //---CHECK---
-        courseList.stream().filter(course -> course.getModuleCode().equalsIgnoreCase(moduleCode))
-                .filter(course ->{
+        courseList.stream()
+                .filter(course -> course.getModuleCode()
+                .equalsIgnoreCase(moduleCode)) //Compares two strings, ignoring lower case and upper case differences.
+                .forEach(course -> {
                     course.setGrade(grade);
+                    //Set grade to pass if greater than 5.5, else course not passed
                     if (grade >= 5.5){
                         passedCourses.add(course);
                     }
                     else{
                         notPassedCourses.add(course);
                     }
-                    return false; //---CHECK---
                 });
-        //---CHECK---
     }
 
-    //Method to get Grade
+
     public double getGrade(String moduleCode){
-        //---CHECK---
-       //An object reference that may be updated atomically
-        AtomicReference<Double> grade = new AtomicReference<>();
+        //An object reference that may be updated atomically
+        //Gets an  object reference to grade which is updated automatically
+        AtomicReference<Double> grade = new AtomicReference<>();//Synchronization
         courseList.stream()
                 .filter(course ->  course.getModuleCode().equalsIgnoreCase(moduleCode))
                 .forEach(course ->{
                     grade.set(course.getGrade());
                 });
-        //---CHECK---
-        return 0; //---CHECK---
+//        System.out.println(grade.get());
+        return grade.get();//return current value
     }
 
     //Method to create grades
     private double randomGrade(){
-        double randG = (double) ((int) (((Math.random() * 10) + 1) * 10)) / 10;
-        return randG; //-
+         return (double) ( (int) (((Math.random() * 10) + 1) * 10)) / 10; //You receive a nice 2 digits
     }
 
     //Getters & Setters
-
 
     public Gender getGender() {
         return gender;

@@ -13,17 +13,16 @@ public class Course {
     private int studyYear;
     private boolean coursePass;
 
-    //Contsructor
+    //Constructor
     public Course (String moduleCode, int studyYear){
-        //---CHECK---
         if(studyYear < 1){
-            this.studyYear = 1;
+            this.studyYear = 1;// Initialized to 1 , if the year of the course is less than one
+            System.out.println("Study Year: " + studyYear);
         }
         else if (studyYear > 4){
             this.studyYear = 4;
             System.out.println("Study Year: " + studyYear);
         }
-        //---CHECK---
         this.moduleCode = moduleCode;
         this.studyYear = studyYear;
     }
@@ -38,15 +37,17 @@ public class Course {
     }
 
     public void setGrade(double grade) {
+        //Sets the grade to be equal to the value of grade
         this.grade = grade;
-        //---CHECK---
+        //If grade is greater than 10, then set it bak to 10
         if(this.grade > 10.0){
             this.grade = 10.0;
-        }else if (this.grade < 1.0){
+        }
+        //If grade is less than 1, set it back to 1
+        else if (this.grade < 1.0){
             this.grade = 1.0;
         }
         setCoursePass(grade >= 5.5);
-        //---CHECK---
     }
 
     public void setCoursePass(boolean coursePass) {
